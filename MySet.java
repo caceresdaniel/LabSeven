@@ -32,6 +32,7 @@ public class MySet implements MyMath<MySet> {
 			if (j == i) {
 				stripOrigSize[l] = a[i];
 				l++;
+				System.out.println("this is a commit test");
 			}
 		}
 
@@ -53,7 +54,7 @@ public class MySet implements MyMath<MySet> {
 				}
 			}
 			int[] stripArray = stripDuplicates(thing);
-	
+
 			for (int i = 0; i < stripArray.length; i++) {
 //				System.out.println(stripArray[i]);
 			}
@@ -177,5 +178,5 @@ public class MySet implements MyMath<MySet> {
 		s += "}\n";
 		return s;
 	}
-	
+
 }
