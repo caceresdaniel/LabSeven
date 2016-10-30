@@ -32,7 +32,6 @@ public class MySet implements MyMath<MySet> {
 			if (j == i) {
 				stripOrigSize[l] = a[i];
 				l++;
-				System.out.println("this is a commit test");
 			}
 		}
 
@@ -45,20 +44,20 @@ public class MySet implements MyMath<MySet> {
 
 	@Override
 	public MySet add(MySet o) {
-			int[] thing = new int[o.getReference().length + this.reference.length];
-			for (int i = 0; i < thing.length; i++) {
-				if (i < o.getReference().length) {
-					thing[i] = o.getReference()[i];
-				} else {
-					thing[i] = this.reference[i - o.getReference().length];
-				}
+		int[] thing = new int[o.getReference().length + this.reference.length];
+		for (int i = 0; i < thing.length; i++) {
+			if (i < o.getReference().length) {
+				thing[i] = o.getReference()[i];
+			} else {
+				thing[i] = this.reference[i - o.getReference().length];
 			}
-			int[] stripArray = stripDuplicates(thing);
-
-			for (int i = 0; i < stripArray.length; i++) {
-//				System.out.println(stripArray[i]);
-			}
-			return new MySet(stripArray);
+		}
+		int[] stripArray = stripDuplicates(thing);
+		
+		for (int i = 0; i < stripArray.length; i++) {
+//			 System.out.println(stripArray[i]);
+		}
+		return new MySet(stripArray);
 	}
 
 	@Override
@@ -91,15 +90,14 @@ public class MySet implements MyMath<MySet> {
 		int[] arrayResult = new int[arraySize];
 		for (int i = 0; i < arraySize; i++) {
 			arrayResult[i] = savedNums[i];
-//			System.out.println(arrayResult[i]);
+			// System.out.println(arrayResult[i]);
 		}
 		return new MySet(arrayResult);
 	}
 
 	@Override
 	public MySet multiply(MySet o) {
-		int[] savedNums = new int[this.reference.length
-				+ o.getReference().length];
+		int[] savedNums = new int[this.reference.length + o.getReference().length];
 		int j = 0;
 		int arraySize = 0;
 		// array size in this method only serves as a counter for the position
@@ -116,21 +114,38 @@ public class MySet implements MyMath<MySet> {
 				arraySize++;
 			}
 		}
-
-		int[] arrayResult = new int[arraySize];
-
-		for (int i = 0; i < stripDuplicates(savedNums).length; i++) {
-			arrayResult[i] = stripDuplicates(savedNums)[i];
-//			System.out.println(arrayResult[i]);
+		for (int i = 0; i < o.getReference().length; i++) {
+			for (j = 0; j < this.reference.length; j++) {
+				if (this.reference[j] == o.getReference()[i]) {
+					j = o.getReference().length + 2;
+				}
+			}
+			if (j == this.reference.length) {
+				savedNums[arraySize] = o.getReference()[i];
+				arraySize++;
+			}
 		}
 
-		return new MySet(arrayResult);
+		if (arraySize == 0) {return null;}
+		
+		else {
+			int[] arrayResult = new int[arraySize];
+	
+			System.out.print("set\n{");
+			for (int i = 0; i < stripDuplicates(savedNums).length - 1; i++) {
+				arrayResult[i] = 
+						stripDuplicates(savedNums)[i];
+				 System.out.print(arrayResult[i] + ", ");
+			}
+			System.out.print("}\n");
+	
+			return new MySet(arrayResult);
+		}
 	}
 
 	@Override
 	public MySet divide(MySet o) {
-		int[] savedNums = new int[this.reference.length
-				+ o.getReference().length];
+		int[] savedNums = new int[this.reference.length + o.getReference().length];
 		int arraySize = 0;
 
 		for (int i = 0; i < this.reference.length; i++) {
@@ -142,14 +157,21 @@ public class MySet implements MyMath<MySet> {
 			}
 		}
 
-		int[] arrayResult = new int[arraySize];
-
-		for (int i = 0; i < stripDuplicates(savedNums).length; i++) {
-			arrayResult[i] = stripDuplicates(savedNums)[i];
-//			System.out.println(arrayResult[i]);
+		if (arraySize == 0) {return null;}
+			
+		else {
+			int[] arrayResult = new int[arraySize];
+	
+			System.out.print("set\n{");
+			for (int i = 0; i < stripDuplicates(savedNums).length - 1; i++) {
+				arrayResult[i] = 
+						stripDuplicates(savedNums)[i];
+				 System.out.print(arrayResult[i] + ", ");
+			}
+			System.out.print("}\n");
+	
+			return new MySet(arrayResult);
 		}
-
-		return new MySet(arrayResult);
 	}
 
 	public int[] getReference() {
@@ -172,7 +194,7 @@ public class MySet implements MyMath<MySet> {
 	public String toString() {
 		String s = "";
 		System.out.print("{");
-		for (int i = 0 ; i < this.reference.length ; i++){
+		for (int i = 0; i < this.reference.length; i++) {
 			s += " " + this.reference[i] + ",";
 		}
 		s += "}\n";
